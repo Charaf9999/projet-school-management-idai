@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Congés{% endblock %}
+{% block topbar_title %}Congés{% endblock %}
+{% block content %}
+{% include 'components/page_header.html' with eyebrow='Module Faculty' title='Jours fériés et congés' subtitle='Calendrier simplifié des dates importantes.' action_url='/faculty/holidays/add/' action_label='Ajouter un congé' %}
+<div class="section-card">
+    {% if holidays %}
+    <div class="table-responsive">
+        <table class="table modern-table align-middle">
+            <thead><tr><th>Titre</th><th>Date</th><th>Description</th><th class="text-end">Actions</th></tr></thead>
+            <tbody>
+            {% for obj in holidays %}
+                <tr>
+                    <td><div class="fw-semibold">{{ obj.title }}</div></td>
+                    <td><span class="badge-soft">{{ obj.holiday_date }}</span></td>
+                    <td>{{ obj.description|default:'-' }}</td>
+                    <td class="text-end text-nowrap">
+                        <a href="{% url 'faculty:holiday_edit' obj.pk %}" class="btn btn-soft-warning btn-sm">Modifier</a>
+                        <a href="{% url 'faculty:holiday_delete' obj.pk %}" class="btn btn-soft-danger btn-sm">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        {% include 'components/empty_state.html' with title='Aucun congé enregistré' text='Ajoutez les jours fériés et périodes de congé utiles à l’établissement.' action_url='/faculty/holidays/add/' action_label='Créer un congé' %}
+    {% endif %}
+</div>
+{% endblock %}

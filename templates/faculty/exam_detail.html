@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Détail examen{% endblock %}
+{% block topbar_title %}Détail examen{% endblock %}
+{% block content %}
+{% include 'components/page_header.html' with eyebrow='Fiche examen' title=exam_obj.subject.name subtitle='Consultez les informations de l’examen et les résultats associés.' %}
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="detail-card h-100">
+            <div class="detail-grid">
+                <div><span class="detail-label">Classe</span><strong>{{ exam_obj.class_name }}</strong></div>
+                <div><span class="detail-label">Date</span><strong>{{ exam_obj.exam_date }}</strong></div>
+                <div><span class="detail-label">Horaire</span><strong>{{ exam_obj.start_time }} - {{ exam_obj.end_time }}</strong></div>
+                <div><span class="detail-label">Salle</span><strong>{{ exam_obj.room|default:'-' }}</strong></div>
+                <div><span class="detail-label">Barème</span><strong>{{ exam_obj.total_marks }}</strong></div>
+                <div class="full"><span class="detail-label">Notes</span><strong>{{ exam_obj.notes|default:'-' }}</strong></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="detail-side-card mb-3">
+            <span class="eyebrow">Résultats liés</span>
+            <h3>Notes enregistrées</h3>
+            <ul class="clean-list mt-3">
+                {% for result in exam_obj.results.all %}
+                    <li><strong>{{ result.student }}</strong> : {{ result.marks }}/{{ exam_obj.total_marks }}{% if result.remarks %} - {{ result.remarks }}{% endif %}</li>
+                {% empty %}
+                    <li>Aucun résultat pour le moment.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="d-flex gap-2 flex-wrap">
+            <a href="{% url 'faculty:exam_edit' exam_obj.pk %}" class="btn btn-primary btn-pill">Modifier</a>
+            <a href="{% url 'faculty:exam_list' %}" class="btn btn-outline-secondary btn-pill">Retour</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

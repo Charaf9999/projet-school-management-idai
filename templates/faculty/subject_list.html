@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Matières{% endblock %}
+{% block topbar_title %}Matières{% endblock %}
+{% block content %}
+{% include 'components/page_header.html' with eyebrow='Module Faculty' title='Liste des matières' subtitle='Chaque matière peut être liée à un département et à un enseignant.' action_url='/faculty/subjects/add/' action_label='Ajouter une matière' %}
+<div class="section-card">
+    {% if subjects %}
+    <div class="table-responsive">
+        <table class="table modern-table align-middle">
+            <thead><tr><th>Matière</th><th>Code</th><th>Département</th><th>Enseignant</th><th class="text-end">Actions</th></tr></thead>
+            <tbody>
+            {% for obj in subjects %}
+                <tr>
+                    <td><div class="fw-semibold">{{ obj.name }}</div><span class="small-muted">Coefficient {{ obj.coefficient }}</span></td>
+                    <td><span class="badge-soft">{{ obj.code }}</span></td>
+                    <td>{{ obj.department }}</td>
+                    <td>{{ obj.teacher|default:'-' }}</td>
+                    <td class="text-end text-nowrap">
+                        <a href="{% url 'faculty:subject_detail' obj.pk %}" class="btn btn-soft-info btn-sm">Détail</a>
+                        <a href="{% url 'faculty:subject_edit' obj.pk %}" class="btn btn-soft-warning btn-sm">Modifier</a>
+                        <a href="{% url 'faculty:subject_delete' obj.pk %}" class="btn btn-soft-danger btn-sm">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        {% include 'components/empty_state.html' with title='Aucune matière disponible' text='Ajoutez vos matières pour pouvoir construire les examens et les emplois du temps.' action_url='/faculty/subjects/add/' action_label='Créer une matière' %}
+    {% endif %}
+</div>
+{% endblock %}

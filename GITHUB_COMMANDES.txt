@@ -1,0 +1,39 @@
+COMMANDES GITHUB POUR PUBLIER LE PROJET
+
+1) Ouvrir le terminal dans le dossier racine du projet.
+Le bon dossier est celui qui contient :
+- manage.py
+- requirements.txt
+- README.md
+
+2) Exécuter les commandes suivantes :
+
+git init
+git add .
+git commit -m "Projet Django gestion scolaire"
+git branch -M main
+
+3) Créer un dépôt PUBLIC sur GitHub.
+Exemple de nom : school-management-idai
+
+4) Relier le dépôt local au dépôt GitHub :
+
+git remote add origin https://github.com/VOTRE_USERNAME/school-management-idai.git
+git push -u origin main
+
+5) Si le remote origin existe déjà :
+
+git remote remove origin
+git remote add origin https://github.com/VOTRE_USERNAME/school-management-idai.git
+git push -u origin main
+
+6) Si Git demande l'identité :
+
+git config --global user.name "Votre Nom"
+git config --global user.email "votreemail@example.com"
+
+Puis refaire :
+
+git add .
+git commit -m "Projet Django gestion scolaire"
+git push -u origin main

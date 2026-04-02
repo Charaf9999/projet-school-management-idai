@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Emploi du temps{% endblock %}
+{% block topbar_title %}Emplois du temps{% endblock %}
+{% block content %}
+{% include 'components/page_header.html' with eyebrow='Module Faculty' title='Emplois du temps' subtitle='Organisation hebdomadaire des séances par classe.' action_url='/faculty/timetables/add/' action_label='Ajouter une séance' %}
+<div class="section-card">
+    {% if timetables %}
+    <div class="table-responsive">
+        <table class="table modern-table align-middle">
+            <thead><tr><th>Classe</th><th>Jour</th><th>Horaire</th><th>Matière</th><th>Salle</th><th class="text-end">Actions</th></tr></thead>
+            <tbody>
+            {% for obj in timetables %}
+                <tr>
+                    <td>{{ obj.class_name }}</td>
+                    <td>{{ obj.day_of_week }}</td>
+                    <td>{{ obj.start_time }} - {{ obj.end_time }}</td>
+                    <td>
+                        <div class="fw-semibold">{{ obj.subject }}</div>
+                        <span class="small-muted">{{ obj.teacher|default:'Enseignant non défini' }}</span>
+                    </td>
+                    <td>{{ obj.room|default:'-' }}</td>
+                    <td class="text-end text-nowrap">
+                        <a href="{% url 'faculty:timetable_edit' obj.pk %}" class="btn btn-soft-warning btn-sm">Modifier</a>
+                        <a href="{% url 'faculty:timetable_delete' obj.pk %}" class="btn btn-soft-danger btn-sm">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        {% include 'components/empty_state.html' with title='Aucun emploi du temps' text='Ajoutez quelques séances pour rendre le projet plus démonstratif.' action_url='/faculty/timetables/add/' action_label='Créer une séance' %}
+    {% endif %}
+</div>
+{% endblock %}

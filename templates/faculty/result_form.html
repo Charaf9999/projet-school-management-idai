@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Résultat{% endblock %}
+{% block topbar_title %}Résultat{% endblock %}
+{% block content %}
+{% include 'components/page_header.html' with eyebrow='Module Faculty' title='Formulaire résultat' subtitle='Ajoutez ou modifiez une note d’examen.' %}
+<div class="section-card form-shell">
+    <form method="post">
+        {% csrf_token %}
+        {% include 'components/form_fields.html' with form=form %}
+        <div class="form-actions mt-4">
+            <button type="submit" class="btn btn-primary btn-pill">Enregistrer</button>
+            <a href="{% url 'faculty:result_list' %}" class="btn btn-outline-secondary btn-pill">Retour</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

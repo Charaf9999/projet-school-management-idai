@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Inscription{% endblock %}
+{% block topbar_title %}Inscription{% endblock %}
+{% block content %}
+<div class="auth-wrapper auth-wrapper-wide">
+    <div class="auth-showcase">
+        <span class="eyebrow">Créer un compte</span>
+        <h2>Inscription rapide pour étudiant ou enseignant.</h2>
+        <p>Cette page permet d'ajouter des comptes simples pour tester les rôles et la redirection dans l'application.</p>
+    </div>
+    <div class="auth-card auth-card-wide">
+        <h3 class="section-title mb-1">Créer un nouveau compte</h3>
+        <p class="small-muted mb-4">Remplissez les informations ci-dessous.</p>
+        <form method="post">
+            {% csrf_token %}
+            {% include 'components/form_fields.html' with form=form %}
+            <button type="submit" class="btn btn-primary btn-pill w-100 mt-4">Créer le compte</button>
+        </form>
+        <p class="small-muted mt-4 mb-0">Déjà inscrit ? <a href="{% url 'login' %}">Aller à la connexion</a></p>
+    </div>
+</div>
+{% endblock %}

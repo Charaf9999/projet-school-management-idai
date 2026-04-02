@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Supprimer parent{% endblock %}
+{% block topbar_title %}Suppression{% endblock %}
+{% block content %}
+<div class="confirm-card">
+    <span class="eyebrow">Suppression</span>
+    <h2>Supprimer ce parent ?</h2>
+    <p>Cette action retirera définitivement le parent sélectionné de la base de données.</p>
+    <form method="post" class="mt-4">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger btn-pill">Oui, supprimer</button>
+        <a href="{% url 'student:parent_list' %}" class="btn btn-outline-secondary btn-pill">Annuler</a>
+    </form>
+</div>
+{% endblock %}

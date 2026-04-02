@@ -1,0 +1,8 @@
+<div class="empty-state">
+    <div class="empty-state-icon">•</div>
+    <h3>{{ title|default:'Aucune donnée trouvée' }}</h3>
+    <p>{{ text|default:'Commencez par ajouter un premier élément pour remplir cette page.' }}</p>
+    {% if action_url and action_label %}
+        <a href="{{ action_url }}" class="btn btn-primary btn-pill">{{ action_label }}</a>
+    {% endif %}
+</div>

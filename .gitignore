@@ -1,0 +1,22 @@
+# Environnement virtuel
+monenv/
+venv/
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.sqlite3
+
+# Django
+media/
+staticfiles/
+
+# VS Code
+.vscode/
+
+# Système
+.DS_Store
+Thumbs.db

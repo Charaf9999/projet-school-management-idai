@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Accueil - School IDAI{% endblock %}
+{% block topbar_title %}Accueil{% endblock %}
+{% block content %}
+<section class="hero-landing">
+    <div class="hero-content">
+        <span class="eyebrow">Plateforme scolaire</span>
+        <h2>Une plateforme simple pour gérer les informations scolaires essentielles.</h2>
+        <p>
+            Cette plateforme centralise la gestion des étudiants, enseignants, matières,
+            départements, congés, emplois du temps et examens.
+        </p>
+        <div class="d-flex flex-wrap gap-2 mt-4">
+            {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}" class="btn btn-light btn-pill px-4">Ouvrir le dashboard</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-light btn-pill px-4">Se connecter</a>
+                <a href="{% url 'signup' %}" class="btn btn-outline-light btn-pill px-4">Créer un compte</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="hero-panel">
+        <div class="mini-stat-grid">
+            <div class="mini-stat-card"><span>Étudiants</span><strong>{{ students_count }}</strong></div>
+            <div class="mini-stat-card"><span>Enseignants</span><strong>{{ teachers_count }}</strong></div>
+            <div class="mini-stat-card"><span>Matières</span><strong>{{ subjects_count }}</strong></div>
+            <div class="mini-stat-card"><span>Départements</span><strong>{{ departments_count }}</strong></div>
+        </div>
+    </div>
+</section>
+
+<div class="row g-4 mt-1">
+    <div class="col-lg-8">
+        <div class="section-card h-100">
+            <div class="section-card-head">
+                <div>
+                    <span class="eyebrow">Fonctionnalités</span>
+                    <h3 class="section-title">Ce que le projet couvre</h3>
+                </div>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-item"><i class="bi bi-mortarboard"></i><div><h4>Étudiants & parents</h4><p>CRUD simple avec détail, modification et suppression.</p></div></div>
+                <div class="feature-item"><i class="bi bi-person-workspace"></i><div><h4>Enseignants & départements</h4><p>Organisation du corps professoral par département.</p></div></div>
+                <div class="feature-item"><i class="bi bi-book"></i><div><h4>Matières & examens</h4><p>Planification des matières, examens et notes.</p></div></div>
+                <div class="feature-item"><i class="bi bi-clock-history"></i><div><h4>Planning & congés</h4><p>Emploi du temps hebdomadaire et jours fériés.</p></div></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="section-card h-100">
+            <span class="eyebrow">Accès rapide</span>
+            <h3 class="section-title">Comptes disponibles</h3>
+            <ul class="clean-list mt-3">
+                <li><strong>Admin :</strong> admin</li>
+                <li><strong>Enseignant :</strong> teacher1</li>
+                <li><strong>Étudiant :</strong> student1</li>
+            </ul>
+            <p class="small-muted mt-3 mb-0">Les mots de passe de test sont indiqués dans le README du projet.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Résultats{% endblock %}
+{% block topbar_title %}Résultats{% endblock %}
+{% block content %}
+{% include 'components/page_header.html' with eyebrow='Module Faculty' title='Résultats d’examens' subtitle='Suivi des notes enregistrées pour chaque étudiant.' action_url='/faculty/results/add/' action_label='Ajouter un résultat' %}
+<div class="section-card">
+    {% if results %}
+    <div class="table-responsive">
+        <table class="table modern-table align-middle">
+            <thead><tr><th>Examen</th><th>Étudiant</th><th>Note</th><th>Remarque</th><th class="text-end">Actions</th></tr></thead>
+            <tbody>
+            {% for obj in results %}
+                <tr>
+                    <td>{{ obj.exam }}</td>
+                    <td><div class="fw-semibold">{{ obj.student }}</div></td>
+                    <td><span class="badge-soft">{{ obj.marks }}</span></td>
+                    <td>{{ obj.remarks|default:'-' }}</td>
+                    <td class="text-end text-nowrap">
+                        <a href="{% url 'faculty:result_edit' obj.pk %}" class="btn btn-soft-warning btn-sm">Modifier</a>
+                        <a href="{% url 'faculty:result_delete' obj.pk %}" class="btn btn-soft-danger btn-sm">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        {% include 'components/empty_state.html' with title='Aucun résultat enregistré' text='Ajoutez quelques notes pour compléter la partie examens du projet.' action_url='/faculty/results/add/' action_label='Créer un résultat' %}
+    {% endif %}
+</div>
+{% endblock %}

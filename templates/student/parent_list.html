@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Parents{% endblock %}
+{% block topbar_title %}Parents{% endblock %}
+{% block content %}
+{% include 'components/page_header.html' with eyebrow='Module Student' title='Liste des parents' subtitle='Consultez les représentants déjà enregistrés dans la plateforme.' action_url='/students/parents/add/' action_label='Ajouter un parent' %}
+<div class="section-card">
+    {% if parents %}
+    <div class="table-responsive">
+        <table class="table modern-table align-middle">
+            <thead>
+                <tr><th>Nom complet</th><th>Téléphone</th><th>Email</th><th>Profession</th><th class="text-end">Actions</th></tr>
+            </thead>
+            <tbody>
+            {% for parent in parents %}
+                <tr>
+                    <td>
+                        <div class="fw-semibold">{{ parent.full_name }}</div>
+                        <span class="small-muted">Parent enregistré</span>
+                    </td>
+                    <td>{{ parent.phone|default:'-' }}</td>
+                    <td>{{ parent.email|default:'-' }}</td>
+                    <td>{{ parent.profession|default:'-' }}</td>
+                    <td class="text-end text-nowrap">
+                        <a href="{% url 'student:parent_edit' parent.pk %}" class="btn btn-soft-warning btn-sm">Modifier</a>
+                        <a href="{% url 'student:parent_delete' parent.pk %}" class="btn btn-soft-danger btn-sm">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        {% include 'components/empty_state.html' with title='Aucun parent enregistré' text='Ajoutez un parent avant de créer les profils étudiants.' action_url='/students/parents/add/' action_label='Créer un parent' %}
+    {% endif %}
+</div>
+{% endblock %}

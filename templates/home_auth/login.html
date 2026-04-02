@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Connexion{% endblock %}
+{% block topbar_title %}Connexion{% endblock %}
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-showcase">
+        <span class="eyebrow">Espace sécurisé</span>
+        <h2>Connectez-vous pour gérer les modules du projet scolaire.</h2>
+        <p>Accédez aux étudiants, enseignants, matières, examens et planning depuis une interface centralisée.</p>
+        <ul class="clean-list mt-4 text-white-50">
+            <li>Accès administrateur, enseignant ou étudiant</li>
+            <li>Navigation plus propre et plus lisible</li>
+            <li>Projet prêt à être démontré au professeur</li>
+        </ul>
+    </div>
+    <div class="auth-card">
+        <h3 class="section-title mb-1">Connexion</h3>
+        <p class="small-muted mb-4">Entrez vos identifiants pour accéder au dashboard.</p>
+        <form method="post">
+            {% csrf_token %}
+            {% include 'components/form_fields.html' with form=form %}
+            <button type="submit" class="btn btn-primary btn-pill w-100 mt-4">Se connecter</button>
+        </form>
+        <p class="small-muted mt-4 mb-0">Pas encore de compte ? <a href="{% url 'signup' %}">Créer un compte</a></p>
+    </div>
+</div>
+{% endblock %}

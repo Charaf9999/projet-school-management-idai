@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Supprimer matière{% endblock %}
+{% block topbar_title %}Suppression{% endblock %}
+{% block content %}
+<div class="confirm-card">
+    <span class="eyebrow">Suppression</span>
+    <h2>Supprimer cette matière ?</h2>
+    <p>Les examens et emplois du temps associés devront être revus.</p>
+    <form method="post" class="mt-4">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger btn-pill">Supprimer</button>
+        <a href="{% url 'faculty:subject_list' %}" class="btn btn-outline-secondary btn-pill">Annuler</a>
+    </form>
+</div>
+{% endblock %}

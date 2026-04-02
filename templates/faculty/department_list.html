@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Départements{% endblock %}
+{% block topbar_title %}Départements{% endblock %}
+{% block content %}
+{% include 'components/page_header.html' with eyebrow='Module Faculty' title='Départements' subtitle='Organisation des filières et pôles pédagogiques.' action_url='/faculty/departments/add/' action_label='Ajouter un département' %}
+<div class="section-card">
+    {% if departments %}
+    <div class="table-responsive">
+        <table class="table modern-table align-middle">
+            <thead><tr><th>Nom</th><th>Description</th><th class="text-end">Actions</th></tr></thead>
+            <tbody>
+            {% for obj in departments %}
+                <tr>
+                    <td><div class="fw-semibold">{{ obj.name }}</div></td>
+                    <td>{{ obj.description|default:'-' }}</td>
+                    <td class="text-end text-nowrap">
+                        <a href="{% url 'faculty:department_edit' obj.pk %}" class="btn btn-soft-warning btn-sm">Modifier</a>
+                        <a href="{% url 'faculty:department_delete' obj.pk %}" class="btn btn-soft-danger btn-sm">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        {% include 'components/empty_state.html' with title='Aucun département enregistré' text='Ajoutez un département pour organiser les enseignants et les matières.' action_url='/faculty/departments/add/' action_label='Créer un département' %}
+    {% endif %}
+</div>
+{% endblock %}

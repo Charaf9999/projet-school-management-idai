@@ -1,0 +1,12 @@
+1. Ouvrir ce dossier dans VS Code.
+2. Ouvrir le terminal à la racine du projet.
+3. Créer et activer l'environnement virtuel.
+4. Installer les dépendances avec pip install -r requirements.txt.
+5. Lancer :
+   python manage.py makemigrations home_auth student faculty
+   python manage.py migrate
+   python manage.py seed_school
+   python manage.py runserver
+6. Tester les pages principales :
+   / , /login/ , /dashboard/ , /students/ , /faculty/teachers/ , /faculty/departments/
+7. Utiliser /admin/ si besoin.

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Supprimer département{% endblock %}
+{% block topbar_title %}Suppression{% endblock %}
+{% block content %}
+<div class="confirm-card">
+    <span class="eyebrow">Suppression</span>
+    <h2>Supprimer ce département ?</h2>
+    <p>Les matières liées devront être revérifiées après suppression.</p>
+    <form method="post" class="mt-4">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger btn-pill">Supprimer</button>
+        <a href="{% url 'faculty:department_list' %}" class="btn btn-outline-secondary btn-pill">Annuler</a>
+    </form>
+</div>
+{% endblock %}

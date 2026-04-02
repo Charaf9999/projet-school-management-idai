@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Enseignants{% endblock %}
+{% block topbar_title %}Enseignants{% endblock %}
+{% block content %}
+{% include 'components/page_header.html' with eyebrow='Module Faculty' title='Liste des enseignants' subtitle='Vue d’ensemble des enseignants et de leur département.' action_url='/faculty/teachers/add/' action_label='Ajouter un enseignant' %}
+<div class="section-card">
+    {% if teachers %}
+    <div class="table-responsive">
+        <table class="table modern-table align-middle">
+            <thead><tr><th>Enseignant</th><th>Département</th><th>Email</th><th>Téléphone</th><th class="text-end">Actions</th></tr></thead>
+            <tbody>
+            {% for obj in teachers %}
+                <tr>
+                    <td>
+                        <div class="fw-semibold">{{ obj.first_name }} {{ obj.last_name }}</div>
+                        <span class="small-muted">{{ obj.speciality|default:'Spécialité non précisée' }}</span>
+                    </td>
+                    <td>{{ obj.department|default:'-' }}</td>
+                    <td>{{ obj.email|default:'-' }}</td>
+                    <td>{{ obj.phone|default:'-' }}</td>
+                    <td class="text-end text-nowrap">
+                        <a href="{% url 'faculty:teacher_detail' obj.pk %}" class="btn btn-soft-info btn-sm">Détail</a>
+                        <a href="{% url 'faculty:teacher_edit' obj.pk %}" class="btn btn-soft-warning btn-sm">Modifier</a>
+                        <a href="{% url 'faculty:teacher_delete' obj.pk %}" class="btn btn-soft-danger btn-sm">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        {% include 'components/empty_state.html' with title='Aucun enseignant enregistré' text='Ajoutez un enseignant pour le lier ensuite aux matières et emplois du temps.' action_url='/faculty/teachers/add/' action_label='Créer un enseignant' %}
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Supprimer étudiant{% endblock %}
+{% block topbar_title %}Suppression{% endblock %}
+{% block content %}
+<div class="confirm-card">
+    <span class="eyebrow">Suppression</span>
+    <h2>Supprimer cet étudiant ?</h2>
+    <p>Le profil étudiant sera supprimé définitivement de l'application.</p>
+    <form method="post" class="mt-4">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger btn-pill">Oui, supprimer</button>
+        <a href="{% url 'student:student_list' %}" class="btn btn-outline-secondary btn-pill">Annuler</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block topbar_title %}Dashboard{% endblock %}
+{% block content %}
+<div class="page-header-card mb-4">
+    <div>
+        <span class="eyebrow">Tableau de bord</span>
+        <h1 class="page-heading mb-2">Bonjour {{ user.first_name|default:user.username }}</h1>
+        <p class="page-subtitle mb-0">Vue générale du système et accès rapides selon le rôle connecté.</p>
+    </div>
+</div>
+
+<div class="stats-grid mb-4">
+    <div class="stat-card stat-blue"><span>Étudiants</span><strong>{{ students_count }}</strong></div>
+    <div class="stat-card stat-cyan"><span>Enseignants</span><strong>{{ teachers_count }}</strong></div>
+    <div class="stat-card stat-violet"><span>Matières</span><strong>{{ subjects_count }}</strong></div>
+    <div class="stat-card stat-orange"><span>Départements</span><strong>{{ departments_count }}</strong></div>
+    <div class="stat-card stat-green"><span>Examens</span><strong>{{ exams_count }}</strong></div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="section-card h-100">
+            <span class="eyebrow">Résumé</span>
+            <h3 class="section-title">Votre espace</h3>
+            {% if user.is_superuser or user.is_admin %}
+                <p class="mb-4">Vous êtes connecté comme administrateur. Vous pouvez gérer tous les modules principaux de la plateforme.</p>
+                <div class="quick-links-grid">
+                    <a href="{% url 'student:student_list' %}" class="quick-link-card"><i class="bi bi-mortarboard"></i><span>Étudiants</span></a>
+                    <a href="{% url 'faculty:teacher_list' %}" class="quick-link-card"><i class="bi bi-person-workspace"></i><span>Enseignants</span></a>
+                    <a href="{% url 'faculty:subject_list' %}" class="quick-link-card"><i class="bi bi-book"></i><span>Matières</span></a>
+                    <a href="{% url 'faculty:exam_list' %}" class="quick-link-card"><i class="bi bi-journal-check"></i><span>Examens</span></a>
+                </div>
+            {% elif user.is_teacher %}
+                {% if teacher_profile %}
+                    <div class="profile-highlight">
+                        <h4>{{ teacher_profile.first_name }} {{ teacher_profile.last_name }}</h4>
+                        <p class="mb-1"><strong>Département :</strong> {{ teacher_profile.department|default:'Non défini' }}</p>
+                        <p class="mb-1"><strong>Email :</strong> {{ teacher_profile.email|default:'-' }}</p>
+                        <p class="mb-0"><strong>Spécialité :</strong> {{ teacher_profile.speciality|default:'-' }}</p>
+                    </div>
+                {% else %}
+                    <p class="mb-0">Le profil enseignant n'est pas encore rattaché à ce compte.</p>
+                {% endif %}
+            {% elif user.is_student %}
+                {% if student_profile %}
+                    <div class="profile-highlight">
+                        <h4>{{ student_profile.first_name }} {{ student_profile.last_name }}</h4>
+                        <p class="mb-1"><strong>Classe :</strong> {{ student_profile.class_name }}</p>
+                        <p class="mb-1"><strong>Matricule :</strong> {{ student_profile.registration_number }}</p>
+                        <p class="mb-0"><strong>Parent :</strong> {{ student_profile.parent }}</p>
+                    </div>
+                {% else %}
+                    <p class="mb-0">Le profil étudiant n'est pas encore rattaché à ce compte.</p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="section-card h-100">
+            <span class="eyebrow">Informations</span>
+            <h3 class="section-title">Compte connecté</h3>
+            <ul class="clean-list mt-3">
+                <li><strong>Utilisateur :</strong> {{ user.username }}</li>
+                <li><strong>Nom :</strong> {{ user.first_name }} {{ user.last_name }}</li>
+                <li><strong>Rôle :</strong> {{ user.get_role }}</li>
+                <li><strong>Email :</strong> {{ user.email|default:'-' }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

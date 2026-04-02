@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Étudiant{% endblock %}
+{% block topbar_title %}Étudiant{% endblock %}
+{% block content %}
+{% include 'components/page_header.html' with eyebrow='Module Student' title='Formulaire étudiant' subtitle='Renseignez les données principales du profil étudiant.' %}
+<div class="section-card form-shell">
+    <div class="info-banner mb-4">Si aucun parent n'existe encore, commencez par créer un parent avant d'enregistrer l'étudiant.</div>
+    <form method="post">
+        {% csrf_token %}
+        {% include 'components/form_fields.html' with form=form %}
+        <div class="form-actions mt-4">
+            <button type="submit" class="btn btn-primary btn-pill">Enregistrer</button>
+            <a href="{% url 'student:student_list' %}" class="btn btn-outline-secondary btn-pill">Retour</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

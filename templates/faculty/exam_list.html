@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Examens{% endblock %}
+{% block topbar_title %}Examens{% endblock %}
+{% block content %}
+{% include 'components/page_header.html' with eyebrow='Module Faculty' title='Liste des examens' subtitle='Planification des examens par matière et par classe.' action_url='/faculty/exams/add/' action_label='Ajouter un examen' %}
+<div class="section-card">
+    {% if exams %}
+    <div class="table-responsive">
+        <table class="table modern-table align-middle">
+            <thead><tr><th>Matière</th><th>Classe</th><th>Date</th><th>Salle</th><th class="text-end">Actions</th></tr></thead>
+            <tbody>
+            {% for obj in exams %}
+                <tr>
+                    <td><div class="fw-semibold">{{ obj.subject }}</div><span class="small-muted">Barème {{ obj.total_marks }}</span></td>
+                    <td>{{ obj.class_name }}</td>
+                    <td>{{ obj.exam_date }}</td>
+                    <td>{{ obj.room|default:'-' }}</td>
+                    <td class="text-end text-nowrap">
+                        <a href="{% url 'faculty:exam_detail' obj.pk %}" class="btn btn-soft-info btn-sm">Détail</a>
+                        <a href="{% url 'faculty:exam_edit' obj.pk %}" class="btn btn-soft-warning btn-sm">Modifier</a>
+                        <a href="{% url 'faculty:exam_delete' obj.pk %}" class="btn btn-soft-danger btn-sm">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        {% include 'components/empty_state.html' with title='Aucun examen planifié' text='Ajoutez des examens pour organiser le suivi des évaluations.' action_url='/faculty/exams/add/' action_label='Créer un examen' %}
+    {% endif %}
+</div>
+{% endblock %}
