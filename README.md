@@ -137,7 +137,7 @@ Le dépôt doit contenir au minimum :
 ## 11. Lien de la vidéo de démonstration
 
 
-**Lien de la vidéo :** `À compléter avant la remise`
+[**Lien de la vidéo :** ](https://drive.google.com/file/d/17QKSdLNUgUGa5mtFekvdoLVJqfRyK6WC/view?usp=sharing)
 
 
 "# projet-school-management-idai" 
